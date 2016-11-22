@@ -1,21 +1,28 @@
 default: all
 
-PROGS:= getmaxy getmaxx
+PROJECT := getmaxyx
+PREFIX ?= /usr/local
+
+PROGRAMS:= getmaxy getmaxx
 
 .PHONY: all
-all: $(PROGS)
+all: $(PROGRAMS)
 
-$(PROGS) : LDFLAGS+= -g -lcurses
-$(PROGS) : CXXFLAGS+=
+$(PROGRAMS) : LDFLAGS+= -g -lcurses
+$(PROGRAMS) : CXXFLAGS+=
 
 getmaxy: CXXFLAGS+= -DMAX_Y
 getmaxx: CXXFLAGS+= -DMAX_X
 
-$(PROGS) : getmaxyx.cc
+$(PROGRAMS) : getmaxyx.cc
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $^ -o $@
 
 .PHONY: clean
 clean:
-	rm -rf $(PROGS)
+	rm -rf $(PROGRAMS)
+
+.PHONY: install
+install: all
+	install -D -m 0755 -t $(PREFIX)/bin $(PROGRAMS)
 
 #
