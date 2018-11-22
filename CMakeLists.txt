@@ -14,11 +14,11 @@ find_package(Curses REQUIRED)
 include_directories(${CURSES_INCLUDE_DIR})
 
 add_executable(getmaxx getmaxyx.cc)
-set_target_properties(getmaxx PROPERTIES COMPILE_FLAGS -DMAX_X)
+target_compile_definitions(getmaxx PRIVATE MAX_X)
 target_link_libraries(getmaxx ${CURSES_LIBRARIES})
 
 add_executable(getmaxy getmaxyx.cc)
-set_target_properties(getmaxy PROPERTIES COMPILE_FLAGS -DMAX_Y)
+target_compile_definitions(getmaxy PRIVATE MAX_Y)
 target_link_libraries(getmaxy ${CURSES_LIBRARIES})
 
 install(TARGETS getmaxx getmaxy
