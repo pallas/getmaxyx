@@ -1,5 +1,6 @@
 /*
  * getmaxy - find the maximum dimensions of a terminal
+ * SPDX-License-Identifier: MIT
  * Author: Derrick Pallas
  *
  */
