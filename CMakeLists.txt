@@ -12,14 +12,15 @@ project(GetMax)
 
 find_package(Curses REQUIRED)
 include_directories(${CURSES_INCLUDE_DIR})
+find_library(TINFO tinfo)
 
 add_executable(getmaxx getmaxyx.cc)
 target_compile_definitions(getmaxx PRIVATE MAX_X)
-target_link_libraries(getmaxx ${CURSES_LIBRARIES})
+target_link_libraries(getmaxx ${CURSES_LIBRARIES} ${TINFO})
 
 add_executable(getmaxy getmaxyx.cc)
 target_compile_definitions(getmaxy PRIVATE MAX_Y)
-target_link_libraries(getmaxy ${CURSES_LIBRARIES})
+target_link_libraries(getmaxy ${CURSES_LIBRARIES} ${TINFO})
 
 install(TARGETS getmaxx getmaxy
 	RUNTIME DESTINATION bin
