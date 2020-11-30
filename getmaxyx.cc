@@ -11,25 +11,21 @@
 
 int main(int argc, char* argv[]) {
     WINDOW *w = initscr();
-    int maxY, maxX;
-    getmaxyx(w, maxY, maxX);
+    int max =
+#if defined(MAX_Y) && defined(MAX_X)
+# error "Both MAX_Y and MAX_X defined!"
+#elif defined(MAX_Y)
+    getmaxy(w)
+#elif defined(MAX_X)
+    getmaxx(w)
+#else
+# error "Neither MAX_Y nor MAX_X defined!"
+#endif
+    ;
     if (OK != endwin())
         exit(EXIT_FAILURE);
 
-printf("%d\n",
-#if defined(MAX_Y) && defined(MAX_X)
-# error "Both MAX_Y and MAX_X defined!"
-    -1
-#elif defined(MAX_Y)
-    maxY
-#elif defined(MAX_X)
-    maxX
-#else
-# error "Neither MAX_Y nor MAX_X defined!"
-    -1
-#endif
-    );
-
+    printf("%d\n", max);
     return EXIT_SUCCESS;
 }
 //
